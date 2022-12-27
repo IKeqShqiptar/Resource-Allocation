@@ -1,0 +1,1814 @@
+from tkinter import *
+from tkinter import messagebox
+import os
+import pandas as pd
+from string import ascii_lowercase
+import random 
+import numpy as np
+from itertools import compress
+import math
+from gurobipy import*
+import gurobipy
+from pathlib import Path
+import pandas as pd
+import plotly
+import plotly.express as px
+import datetime
+from openpyxl import Workbook,load_workbook
+from PyQt5.QtGui import QPixmap
+import sys
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import *
+from AnaSayfaUI import *
+from HakkindaUI import *
+import webbrowser
+import locale
+
+
+
+w=Tk()
+w.geometry('350x500')
+w.title(' L O G I N ')
+w.resizable(0,0)
+
+data_id= ["proje","donanım", "yazılım"]
+data_pw= ["proje_admin","donanım_admin","yazılım_admin"]
+kullanıcı=""
+#Making gradient frame
+j=0
+r=10
+for i in range(100):
+    c=str(222222+r)
+    Frame(w,width=10,height=500,bg="#"+c).place(x=j,y=0)   
+    j=j+10                                                  
+    r=r+1
+
+Frame(w,width=250,height=400,bg='white').place(x=50,y=50)
+
+
+l1=Label(w,text='Username',bg='white')
+l=('Consolas',13)
+l1.config(font=l)
+l1.place(x=80,y=200)
+
+#e1 entry for username entry
+e1=Entry(w,width=20,border=0)
+l=('Consolas',13)
+e1.config(font=l)
+e1.place(x=80,y=230)
+
+#e2 entry for password entry
+e2=Entry(w,width=20,border=0,show='*')
+e2.config(font=l)
+e2.place(x=80,y=310)
+
+
+l2=Label(w,text='Password',bg='white')
+l=('Consolas',13)
+l2.config(font=l)
+l2.place(x=80,y=280)
+
+
+###lineframe on entry
+
+Frame(w,width=180,height=2,bg='#141414').place(x=80,y=332)
+Frame(w,width=180,height=2,bg='#141414').place(x=80,y=252)
+
+from PIL import ImageTk,Image
+
+
+
+imagea=Image.open("log.png")
+imageb= ImageTk.PhotoImage(imagea)
+
+label1 = Label(image=imageb,
+               border=0,
+               
+               justify=CENTER)
+
+
+label1.place(x=115, y=50)
+
+
+#Command
+def cmd():
+    #if "Adem" in d2:
+         #for i in range(len(d2)):
+          #   if d2[i]=="Adem":
+              
+           #   excell_start[3,2]=d3[i]+excell_proj_time[d3[i]-1,0]
+    print("Kullanıcı_Girişi")
+    if e1.get() in data_id:
+        for i in range(len(data_id)):
+            if data_id[i]==e1.get():
+                
+                if e2.get()==data_pw[i]:
+                 kullanıcı=e1.get()
+                 messagebox.showinfo("LOGIN SUCCESSFULLY",  " %s olarak girişiniz başarılı" %(kullanıcı))
+                 
+                 w.destroy()
+                else:
+                 messagebox.showinfo("LOGIN Failed", "         Please try again        ")   
+                 # -*- coding: utf-8 -*-
+                 """
+                 
+                 @author: IKeqShqiptar
+                 """
+                 
+                 #-------------------KÜTÜPHANE----------------#
+                 #--------------------------------------------#
+                 
+
+
+
+
+
+
+
+                 #-------------------UYGULAMA OLUŞTURMA-------#
+                 #--------------------------------------------#
+                if kullanıcı != "":
+                 locale.setlocale(locale.LC_ALL, '')
+
+                 Uygulama= QApplication(sys.argv)
+                 penAna= QMainWindow()
+
+
+                 penDialog= QDialog()
+                 penHakkinda = Ui_Dialog()
+                 penHakkinda.setupUi(penAna)
+                 ui=Ui_MainWindow()
+                 ui.setupUi(penAna)
+
+                 penAna.show()
+                 l = QListWidget()
+                 people=""
+
+
+                 value=ui.lwKaynak1.editTriggers()
+                 people+=str(value)
+                 t1=0;t2=0;t3=0;t4=0;t5=0;t6=0;t7=0;t8=0;t9=0;t10=0;t11=0
+
+                 #-------------------VERİTABANI OLUŞTURMA-------#
+                 #--------------------------------------------#
+                 import sqlite3
+                 global curs
+                 global conn
+                 conn=sqlite3.connect('veritabani.db')
+                 curs=conn.cursor()
+                 sorguCreTblSpor=("CREATE TABLE IF NOT EXISTS proje(                 \
+                                  Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,    \
+                                  PROJENo TEXT NOT NULL UNIQUE,                        \
+                                  PojeninAdi TEXT NOT NULL,                          \
+                                  ProjeKoordinatoru TEXT NOT NULL,                       \
+                                  FirmaAdi TEXT NOT NULL,                           \
+                                  Kaynaklar TEXT NOT NULL,                              \
+                                  BitisTarihi TEXT NOT NULL,                            \
+                                  Aktiflik TEXT NOT NULL,                               \
+                                  TamamlanmaYuzdesi TEXT NOT NULL)")
+                 curs.execute(sorguCreTblSpor)
+                 conn.commit()
+
+
+                 #-----------------ListWidget-----------------#
+
+                 def getListItem():
+                    deneme=""
+                    #prints the selected item
+                    value=ui.lwKaynak1.currentItem().text()
+                    deneme= deneme + " " +  str(value)
+                    
+
+
+                 #----------------------KAYDET-----------------------------#
+                 #---------------------------------------------------------#
+
+
+
+                 def EKLE():
+                     
+                     
+                    
+                    " lnePadi(Textbox)" " cmbbz1=gün"" cmbbz2=gün"" cmbbz3=gün"" cmbbt1 cmbbt2 cmbbt3  lwKaynak_3  lwKaynak_2  lwKaynak_1"
+                    proje=ui.lnePAdi.text()
+                    tarih_1=ui.cmbbz1.currentText()
+                    tarih_2=ui.cmbbz2.currentText()
+                    tarih_3=ui.cmbbz3.currentText()
+                    başlangıç=tarih_1+ "/" + tarih_2+ "/" +tarih_3
+                    
+                    tarih_4=ui.cmbbt1.currentText()
+                    tarih_5=ui.cmbbt2.currentText()
+                    tarih_6=ui.cmbbt3.currentText()
+                    bitiş=tarih_4+ "/" + tarih_5+ "/" +tarih_6
+
+                    
+                          
+                    donanım=" "
+                    donanım=donanım + "  " + str([item.text() for item in ui.lwKaynak1.selectedItems()])
+                    
+                    yazılım=" "
+                    yazılım=yazılım + "  " + str([item.text() for item in ui.lwKaynak_2.selectedItems()])
+                    
+                    iş=" "
+                    iş=iş + "  " + str([item.text() for item in ui.lwKaynak_3.selectedItems()])
+                    dil=ui.lwKaynak1_2.currentItem().text()
+                    öncelik=ui.lnePAdi_2.text()
+                    karlılık=ui.lnePAdi_3.text()
+                    teklif=ui.lnePAdi_4.text()
+                    maliyet=ui.lnePAdi_5.text()
+                    
+                    wb = load_workbook("Ithinka_Inovasyon.xlsx")
+                    ws = wb.active
+
+
+                     
+                    ws = wb["Aktif Projeler"]
+                    start_date=datetime.datetime.strptime(başlangıç, "%d/%m/%Y")
+                    finish_date=datetime.datetime.strptime(bitiş,"%d/%m/%Y")
+
+
+                    ws.append([proje, start_date,finish_date, iş, yazılım,donanım,öncelik,dil,karlılık,teklif,maliyet,kullanıcı])
+                    
+
+
+
+                    wb.save("Ithinka_Inovasyon.xlsx")  # Sıradaki satıra sırasıyla dizi elemanlarını ekler                    
+                    print("Proje_Eklemesi_Yapıldı")
+                    
+                    
+                    
+                    
+                   
+
+                    
+                    
+                    
+                 #----------------------LİSTELE-----------------------------#
+                 #---------------------------------------------------------#  
+                 def LISTELE():
+                    print("Listeleme_İşlemi")
+                    from PyQt6.QtWidgets import QApplication, QWidget, QTableWidget, QTableWidgetItem, QPushButton, QHeaderView, QHBoxLayout, QVBoxLayout
+                    from PyQt6.QtCore import Qt
+                    class MyApp(QWidget):
+                        def __init__(self):
+                            super().__init__()
+                            self.window_width, self.window_height = 1280, 600
+                            self.resize(self.window_width, self.window_height)
+                            self.setWindowTitle('Aktif Projeler Hakkında Bilgiler')
+                            
+                            layout = QVBoxLayout()
+                            self.setLayout(layout)
+
+                            self.table = QTableWidget()
+                            layout.addWidget(self.table)
+
+                            self.button = QPushButton('&Load Data')
+                            self.button.clicked.connect(lambda _, xl_path="Ithinka_Inovasyon.xlsx", sheet_name="Aktif Projeler": self.loadExcelData(xl_path, sheet_name))
+                            layout.addWidget(self.button)
+                            
+                            self.button2= QPushButton('Delete Data')
+                            self.button2.clicked.connect(SIL)
+                            layout.addWidget(self.button2)
+                            
+                            
+                            
+                        
+                            
+                           
+
+                        def loadExcelData(self, excel_file_dir, worksheet_name):
+                            df = pd.read_excel(excel_file_dir, worksheet_name)
+                            if df.size == 0:
+                                return
+
+                            df.fillna('', inplace=True)
+                            self.table.setRowCount(df.shape[0])
+                            self.table.setColumnCount(df.shape[1])
+                            self.table.setHorizontalHeaderLabels(df.columns)
+
+                            # returns pandas array object
+                            for row in df.iterrows():
+                                values = row[1]
+                                for col_index, value in enumerate(values):
+                                    if isinstance(value, (float, int)):
+                                        value = '{0:0,.0f}'.format(value)
+                                    tableItem = QTableWidgetItem(str(value))
+                                    self.table.setItem(row[0], col_index, tableItem)
+
+                            self.table.setColumnWidth(10, 300)
+                            
+                    if __name__ == '__main__':
+                        # don't auto scale when drag app to a different monitor.
+                        # QGuiApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
+                        
+                        excel_file_path = 'data.xlsx'
+                        worksheet_name = 'Sales'
+
+                        app = QApplication(sys.argv)
+                        app.setStyleSheet('''
+                            QWidget {
+                                font-size: 17px;
+                            }
+                        ''')
+                        
+                        myApp = MyApp()
+                        myApp.show()
+
+                        try:
+                            sys.exit(app.exec())
+                        except SystemExit:
+                            print('Closing Window...')
+
+                 #----------------------ÇIKIŞ-----------------------------#
+                 #---------------------------------------------------------#  
+                 def CIKIS(): 
+                  reply = QMessageBox.question(penAna, 'Message',
+                                              "Are you sure to quit?", QMessageBox.Yes |
+                                              QMessageBox.No, QMessageBox.No)
+                  if reply == QMessageBox.Yes:
+                    status=Uygulama.exec_()
+                    penAna.destroy()
+                    sys.exit(status)
+                  else:
+                     event.ignore()
+                         
+
+
+                 #----------------------SİL-----------------------------#
+                 #---------------------------------------------------------# 
+                 def SIL():
+                     print("Silme_İşlemi")
+                     cevap=QMessageBox.question(penAna,"KAYIT SİL","Kaydı silmek istediğinize emin misiniz?",\
+                                          QMessageBox.Yes | QMessageBox.No)
+                     if cevap==QMessageBox.Yes:
+                         wb = load_workbook("Ithinka_Inovasyon.xlsx")
+                         ws = wb.active
+
+
+
+
+                         ws = wb["Aktif Projeler"]
+
+                         ws.delete_rows(ws.max_row)
+
+                         wb.save("Ithinka_Inovasyon.xlsx")  # Sıradaki satıra sırasıyla dizi elemanlarını ekle
+                      
+                        
+                         
+                 #----------------------ARAMA-----------------------------#
+                 #---------------------------------------------------------# 
+
+                 def SIFIRLA():
+                     ui.tableWidget.clear()
+                         
+                     
+
+                 #----------------------DOLDUR-----------------------------#
+                 #---------------------------------------------------------#
+                 def DOLDUR():
+                     
+                    print("deneme")        
+                     
+                 #----------------------GÜNCELLE-----------------------------#
+                 #---------------------------------------------------------#
+                 def Güncelle():
+                     print("İş_Yükü İşlemi")
+                     import tkinter as Tk
+                     from random import randint
+                     wb = load_workbook("Ithinka_Inovasyon.xlsx")
+                     ws = wb.active
+
+
+
+
+                     ws = wb["Aktif Projeler"] 
+                     excell_iş_yükü=[]
+
+                     all_data = pd.DataFrame()
+                     for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                         df = pd.read_excel(f,"Aktif Projeler")
+                         all_data = all_data.append(df,ignore_index=True)
+
+                     all_data.dropna(how='all')
+                     excell_iş_yükü=np.asarray(all_data)
+                     
+                     iş_yükü=[]
+                     for i in  range(0,ws.max_row-1):
+                         iş_yükü+=[excell_iş_yükü[i,3]]
+                         iş_yükü+=[excell_iş_yükü[i,4]]
+                         iş_yükü+=[excell_iş_yükü[i,5]]
+                         
+                    
+                     iş_yükü2=[]
+                     deneme=""
+
+                     for i in range(len(iş_yükü)):
+                      iş_yükü2+=(re.split('\s',iş_yükü[i]))
+                      deneme+=str(iş_yükü[i])
+                    
+                   
+                     
+                     elemanlarr=[]
+                     all_data = pd.DataFrame()
+                     
+                     for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                         df = pd.read_excel(f,"Liste")
+                         
+                         all_data = all_data.append(df,ignore_index=True)
+
+                     all_data.dropna(how='all')
+                     elemanlarr=np.asarray(all_data)
+                    
+                    
+                     
+                     ws = wb["Liste"]
+                     check=ws.max_row-1
+                     elemanlar = {
+                       str(elemanlarr[0,0]) : {
+                         "değer" : deneme.count(str(elemanlarr[0,0])),
+                         "renk" : ""
+                       },
+                       
+                       str(elemanlarr[1,0]) : {
+                         "değer" : deneme.count(str(elemanlarr[1,0])),
+                         "renk" : ""
+                       },
+                      str(elemanlarr[2,0]) : {
+                        "değer" : deneme.count(str(elemanlarr[2,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[3,0]) : {
+                        "değer" : deneme.count(str(elemanlarr[3,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[4,0]) : {
+                        "değer" : deneme.count(str(elemanlarr[4,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[5,0]) : {
+                        "değer" : deneme.count(str(elemanlarr[5,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[6,0]) : {
+                        "değer" : deneme.count(str(elemanlarr[6,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[7,0]) : {
+                        "değer" : deneme.count(str(elemanlarr[7,0])),
+                        "renk" : ""
+                      },
+                                                       
+                                                    
+                      }
+                     elemanlar2 = {
+                       str(elemanlarr[0,1]) : {
+                         "değer" : deneme.count(str(elemanlarr[0,1])),
+                         "renk" : ""
+                       },
+                       
+                       str(elemanlarr[1,1]) : {
+                         "değer" : deneme.count(str(elemanlarr[1,1])),
+                         "renk" : ""
+                       },
+                      str(elemanlarr[2,1]) : {
+                        "değer" : deneme.count(str(elemanlarr[2,1])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[3,1]) : {
+                        "değer" : deneme.count(str(elemanlarr[3,1])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[4,1]) : {
+                        "değer" : deneme.count(str(elemanlarr[4,1])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[5,1]) : {
+                        "değer" : deneme.count(str(elemanlarr[5,1])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[6,1]) : {
+                        "değer" : deneme.count(str(elemanlarr[6,1])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[7,1]) : {
+                        "değer" : deneme.count(str(elemanlarr[7,1])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[8,1]) : {
+                        "değer" : deneme.count(str(elemanlarr[8,1])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[9,1]) : {
+                        "değer" : deneme.count(str(elemanlarr[9,1])),
+                        "renk" : ""
+                      },
+                      
+                     }
+                     elemanlar3 = {
+                       str(elemanlarr[0,2]) : {
+                         "değer" : deneme.count(str(elemanlarr[0,2])),
+                         "renk" : ""
+                       },
+                       
+                       str(elemanlarr[1,2]) : {
+                         "değer" : deneme.count(str(elemanlarr[1,2])),
+                         "renk" : ""
+                       },
+                      str(elemanlarr[2,2]) : {
+                        "değer" : deneme.count(str(elemanlarr[2,2])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[3,2]) : {
+                        "değer" : deneme.count(str(elemanlarr[3,2])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[4,2]) : {
+                        "değer" : deneme.count(str(elemanlarr[4,2])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[5,2]) : {
+                        "değer" : deneme.count(str(elemanlarr[5,2])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[6,2]) : {
+                        "değer" : deneme.count(str(elemanlarr[6,2])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[7,2]) : {
+                        "değer" : deneme.count(str(elemanlarr[7,2])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[8,2]) : {
+                        "değer" : deneme.count(str(elemanlarr[8,2])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr[9,2]) : {
+                        "değer" : deneme.count(str(elemanlarr[9,2])),
+                        "renk" : ""
+                      },
+                      
+                      str(elemanlarr[10,2]) : {
+                        "değer" : deneme.count(str(elemanlarr[10,2])),
+                        "renk" : ""
+                      },
+                     str(elemanlarr[11,2]) : {
+                       "değer" : deneme.count(str(elemanlarr[11,2])),
+                       "renk" : ""
+                     },
+                     str(elemanlarr[12,2]) : {
+                       "değer" : deneme.count(str(elemanlarr[12,2])),
+                       "renk" : ""
+                     },
+                     str(elemanlarr[13,2]) : {
+                       "değer" : deneme.count(str(elemanlarr[13,2])),
+                       "renk" : ""
+                     },
+                     str(elemanlarr[14,2]) : {
+                       "değer" : deneme.count(str(elemanlarr[14,2])),
+                       "renk" : ""
+                     },
+                     str(elemanlarr[15,2]) : {
+                       "değer" : deneme.count(str(elemanlarr[15,2])),
+                       "renk" : ""
+                     },
+                                                           
+                     }
+                     
+                     elemanlarr2=[]
+                     all_data = pd.DataFrame()
+                     
+                     for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                         df = pd.read_excel(f,"Bilgi")
+                         all_data = all_data.append(df,ignore_index=True)
+
+                     all_data.dropna(how='all')
+                     elemanlarr2=np.asarray(all_data)
+                     
+                     
+                     elemanlar4 = {
+                       str(elemanlarr2[0,0]) : {
+                         "değer" : deneme.count(str(elemanlarr2[0,0])),
+                         "renk" : ""
+                       },
+                       
+                       str(elemanlarr2[1,0]) : {
+                         "değer" : deneme.count(str(elemanlarr2[1,0])),
+                         "renk" : ""
+                       },
+                      str(elemanlarr2[2,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[2,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr2[3,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[3,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr2[4,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[4,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr2[5,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[5,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr2[6,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[6,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr2[7,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[7,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr2[8,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[8,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr2[9,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[9,0])),
+                        "renk" : ""
+                      },
+                      
+                      str(elemanlarr2[10,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[10,0])),
+                        "renk" : ""
+                      },
+                     str(elemanlarr2[11,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[11,0])),
+                       "renk" : ""
+                      },
+                      str(elemanlarr2[12,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[12,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr2[13,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[13,0])),
+                        "renk" : ""
+                      }, 
+                      str(elemanlarr2[14,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[14,0])),
+                        "renk" : ""
+                      },
+                      str(elemanlarr2[15,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[15,0])),
+                        "renk" : ""
+                      },
+                      
+                      str(elemanlarr2[16,0]) : {
+                        "değer" : deneme.count(str(elemanlarr2[16,0])),
+                        "renk" : ""
+                      },
+                     str(elemanlarr2[17,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[17,0])),
+                       "renk" : ""
+                     },
+                     str(elemanlarr2[18,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[18,0])),
+                       "renk" : ""
+                     },
+                     str(elemanlarr2[19,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[19,0])),
+                       "renk" : ""
+                     },
+                     str(elemanlarr2[20,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[20,0])),
+                       "renk" : ""
+                     },
+                     str(elemanlarr2[21,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[21,0])),
+                       "renk" : ""
+                     },
+                     str(elemanlarr2[22,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[22,0])),
+                       "renk" : ""
+                     },
+                     str(elemanlarr2[23,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[23,0])),
+                       "renk" : ""
+                     },
+                     str(elemanlarr2[24,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[24,0])),
+                       "renk" : ""
+                     },
+                     
+                     str(elemanlarr2[25,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[25,0])),
+                       "renk" : ""
+                     },
+                    str(elemanlarr2[26,0]) : {
+                      "değer" : deneme.count(str(elemanlarr2[26,0])),
+                      "renk" : ""
+                     },
+                     str(elemanlarr2[27,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[27,0])),
+                       "renk" : ""
+                     },
+                     str(elemanlarr2[28,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[28,0])),
+                       "renk" : ""
+                     }, 
+                     str(elemanlarr2[29,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[29,0])),
+                       "renk" : ""
+                     }, 
+                     str(elemanlarr2[30,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[30,0])),
+                       "renk" : ""
+                     },
+                     
+                     str(elemanlarr2[31,0]) : {
+                       "değer" : deneme.count(str(elemanlarr2[31,0])),
+                       "renk" : ""
+                     },
+                    str(elemanlarr2[32,0]) : {
+                      "değer" : deneme.count(str(elemanlarr2[32,0])),
+                      "renk" : ""
+                    },
+                    str(elemanlarr2[33,0]) : {
+                      "değer" : deneme.count(str(elemanlarr2[33,0])),
+                      "renk" : ""
+                    },
+                    }
+                     
+                     for i, j in elemanlar.items():
+                         renk = "#" + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9))
+                         elemanlar[i]['renk'] = renk
+                     for i, j in elemanlar2.items():
+                         renk = "#" + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9))
+                         elemanlar2[i]['renk'] = renk
+                     for i, j in elemanlar3.items():
+                         renk = "#" + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9))
+                         elemanlar3[i]['renk'] = renk
+                     for i, j in elemanlar4.items():
+                         renk = "#" + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9)) + str(randint(0, 9))
+                         elemanlar4[i]['renk'] = renk      
+                     arayuz = Tk.Tk()
+                     #Kullanıcı Arayüzü Ayarları
+                     ekran_olcek =0.9 #Boyut için
+                     ekran_gen = int(arayuz.winfo_screenwidth() * ekran_olcek)
+                     ekran_yuk = int(arayuz.winfo_screenheight() * ekran_olcek)
+                     ekran_boyutu = str(ekran_gen)+'x'+str(ekran_yuk)
+                     arayuz.geometry(ekran_boyutu)
+                     arayuz.title("Bar-Chart Graphic")
+                     arayuz.resizable(False, False)
+                     canvas = Tk.Canvas(arayuz, width=ekran_gen, height=ekran_yuk, background="white smoke")
+                     canvas.pack(expand=0)
+                     ayarlar = [False,False,False,False]  # Sırasıyla: Çizgi, Değerler, İsimler (butonlar için)
+
+                     degerler = [t["değer"] for t in elemanlar4.values()]
+                     kul_alan_x = int(ekran_gen * 0.9)       #Arayüzün 0.9'u
+                     grafik_alan_y = int(ekran_yuk * 0.9)    #Arayüzün 0.9'u
+                     grafik_alan_x = int(kul_alan_x * 0.75)  #Yatay eksenin 0.75'i grafiğin
+                     buton_x = ((kul_alan_x - grafik_alan_x) / 2) + grafik_alan_x
+                     buton_pay_y = (grafik_alan_y * 0.5) / 3
+                     bar_kalinlik = pay_x = int((grafik_alan_x / (len(elemanlar4) + 1))/2)
+                     pay_y = int(grafik_alan_y * 0.1)
+                     
+                     bar_boy = (1 / max(degerler) * (grafik_alan_y - (2 * pay_y)))
+                     
+
+                     def bar_chart(elemanlar, ayarlar):
+                         x = pay_x
+                         y = pay_y
+                         canvas.create_line(x, grafik_alan_y, grafik_alan_x, grafik_alan_y, fill="black")  # X ekseni
+                         canvas.create_line(x, y, x, grafik_alan_y, fill="black")                          # Y ekseni
+                         canvas.create_text(x+30, y - (pay_y / 2), text="İş_Yükü_Puanı")
+                         canvas.create_text(grafik_alan_x+30 + pay_x, grafik_alan_y, text="Personel_İsimleri")
+                         
+                        
+                         
+                         for i, j in elemanlar.items():
+                             
+                             
+                             if ayarlar[2] is True:
+                                
+                              canvas.create_text((pay_x / 2), grafik_alan_y - (elemanlar[i]['değer'] * bar_boy), text=elemanlar[i]['değer'])
+                             x = x + pay_x
+                             canvas.create_rectangle(x, grafik_alan_y - (elemanlar[i]['değer'] * bar_boy), x + bar_kalinlik, grafik_alan_y, fill=elemanlar[i]['renk'])
+                             if ayarlar[2] is False:
+                               canvas.create_text((pay_x / 2), grafik_alan_y - (elemanlar[i]['değer'] * bar_boy), text=elemanlar[i]['değer'])
+                               canvas.create_rectangle(x, grafik_alan_y - (elemanlar[i]['değer'] * bar_boy), x + bar_kalinlik, grafik_alan_y, fill=elemanlar[i]['renk'])
+                             if ayarlar[1] is True:
+                                 canvas.create_line(x, grafik_alan_y - (elemanlar[i]['değer'] * bar_boy), pay_x, grafik_alan_y - (elemanlar[i]['değer'] * bar_boy), dash=(1, 5), fill="gray15")
+                             x = x + bar_kalinlik
+                             if ayarlar[1] is False:
+                                 canvas.create_line(x, grafik_alan_y - (elemanlar[i]['değer'] * bar_boy), pay_x, grafik_alan_y - (elemanlar[i]['değer'] * bar_boy), dash=(1, 5), fill="gray15")
+                             
+                             if ayarlar[0] is True:
+                                 canvas.create_text(x - (bar_kalinlik / 2), grafik_alan_y + (pay_y / 2), text=i,angle=90,font=('Alice',7,'bold'))
+                             elif ayarlar[0] is False:
+                                 canvas.create_text(x - (bar_kalinlik / 2), grafik_alan_y + (pay_y / 2), text=i, angle=90, font=('Alice',7,'bold'))
+                                 
+                     def isimler_on():
+                             if ayarlar[0] is False:
+                                 
+                                 ayarlar[0] = True
+                             else:
+                                 ayarlar[0] = False
+                             canvas.delete("all")
+                             bar_chart(elemanlar, ayarlar)
+                     def cizgi_on():
+                             if ayarlar[1] is False:
+                                 ayarlar[1] = True
+                             else:
+                                 ayarlar[1] = False
+                             canvas.delete("all")
+                             bar_chart(elemanlar2, ayarlar)
+                     def degerler_on():
+                             if ayarlar[2] is False:
+                                 ayarlar[2] = True
+                             else:
+                                 ayarlar[2] = False
+                             canvas.delete("all")
+                             bar_chart(elemanlar3, ayarlar)
+                     def degerler_off():
+                             if ayarlar[3] is False:
+                                 ayarlar[3] = True
+                             else:
+                                 ayarlar[3] = False
+                             canvas.delete("all")
+                             bar_chart(elemanlar4, ayarlar)        
+                             
+                     Tk.Button(arayuz, font="times 12 bold", text="İş_Analistleri", command=isimler_on, background="green",
+                                                 anchor="nw").place(x=buton_x, y=(grafik_alan_y / 2) - buton_pay_y)
+                     Tk.Button(arayuz, font="times 12 bold", text="Argeciler", command=cizgi_on, background="red",
+                                                  anchor="nw").place(x=buton_x, y=grafik_alan_y / 2)
+                     Tk.Button(arayuz, font="times 12 bold", text="Yazılımcılar", command=degerler_on, background="blue",
+                                   anchor="nw").place(x=buton_x, y=(grafik_alan_y / 2) + buton_pay_y)
+                     Tk.Button(arayuz, font="times 12 bold", text="Tüm_Personel", command=degerler_off, background="gray",
+                                   anchor="nw").place(x=buton_x, y=(grafik_alan_y / 2) + 2*buton_pay_y)
+
+
+                     bar_chart(elemanlar, ayarlar)
+                     arayuz.mainloop()            
+                     
+
+
+                 #----------------------HAKKINDA-----------------------------#
+                 #---------------------------------------------------------#
+                 def HAKKINDA():
+                  #app = QtWidgets.QApplication(sys.argv) #Uygulamanın çalışması için gerekli.
+                  #pencere = QtWidgets.QWidget()
+                  #pencere.setWindowTitle("PyQt5 Ders 1 ")
+                   #Pencere objesine label (etiket) oluşturur. Ekranda gösterir.
+                  #penDialog(QtGui.QPixmap("logo.png"))
+                  
+                  #penDialog.move(0,0) #2. etiketi istenilen konuma taşır.
+
+                  #pencere.setGeometry(100,100,500,500) #Soldan ve Üstten 100 hizalı, 500x500 lük pencere oluşturur.
+
+                  #pencere.show() #oluşturulan pencereyi gösterir.
+                  
+                  #sys.exit(app.exec_()) #Pencere çalıştığında çarpı tuşuna basılana kadar programın çalışmasını sağlar.
+
+
+                  
+                  
+                  
+
+                  
+                  
+                  penDialog.setWindowTitle("HAKKINDA ")
+
+                  penDialog.setGeometry(100,100,900,900)
+                  etiket1 = QtWidgets.QLabel(penDialog)
+                  etiket1.move(0,0) 
+                  etiket1.setPixmap(QtGui.QPixmap("logo.jpg"))
+                  penDialog.show()
+
+                     
+                  
+                  
+
+                 #----------------------SİNYAL-SLOT-----------------------------#
+                 #---------------------------------------------------------
+                 def Gantt(): 
+                     print("Gantt Şeması") 
+                     wb = load_workbook("Ithinka_Inovasyon.xlsx")
+                     ws = wb.active
+
+
+
+
+                     ws = wb["Aktif Projeler"] 
+                     excell_gantt=[]
+
+                     all_data = pd.DataFrame()
+                     for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                         df = pd.read_excel(f,"Aktif Projeler")
+                         all_data = all_data.append(df,ignore_index=True)
+
+                     all_data.dropna(how='all')
+                     excell_gantt=np.asarray(all_data)
+                     
+                     
+                     ss1=[]
+                     ss2=[]
+                     ss3=[]
+                     ss4=[]
+                     ss5=[]
+                     ss6=[]
+
+                     for i in range(ws.max_row-1):
+                         ss1+=[excell_gantt[i,0]]
+                         ss2+=[excell_gantt[i,1]]
+                         ss3+=[excell_gantt[i,2]]
+                         ss4+=[excell_gantt[i,4]]
+                         ss5+=[[excell_gantt[i,3],[excell_gantt[i,4],[excell_gantt[i,5]]]]]
+                         ss6+=[excell_gantt[i,6]]
+                         
+                         
+
+
+
+                       
+                         
+
+                     data = pd.DataFrame({'Projeler': ss1, 'Başlangıç Tarihi:':ss2 , 'Bitiş Tarihi:':ss3 ,'Proje Önceliği':ss6 ,'Kaynaklar':ss5 , 'Proje Dili':ss4})
+
+                     data.to_excel('Gant.xlsx', sheet_name='Ganttt', index=False)
+
+                     EXCEL_FILE = Path.cwd() / "Gant.xlsx"
+
+
+                     df = pd.read_excel(EXCEL_FILE)
+
+
+                     tasks = df["Projeler"]
+                     start = df["Başlangıç Tarihi:"]
+                     finish = df["Bitiş Tarihi:"]
+                     complete = df["Proje Önceliği"]
+                     kaynaklar = df["Kaynaklar"]
+                     
+
+
+
+                     fig = px.timeline(
+                         df, x_start=start, x_end=finish, y=tasks,color=complete, hover_name=kaynaklar, title="Ithinka_Resource_Allocation"
+                     )
+
+
+                     fig.update_yaxes(autorange="reversed")
+                     fig.update_layout(title_font_size=42, font_size=18,title_font_family="Arial")
+
+
+                     #plotly.offline.plot(fig, filename="Preparedby_Group_18.html")
+                     fig.write_html("Preparedby_Group_18.html")
+
+                     os.system('Preparedby_Group_18.html')
+
+                 #----------------------SİNYAL-SLOT-----------------------------#
+                 #--------------------------------------------------------- 
+                 def Atama():
+                   print("Atama İşlemi") 
+                   from PyQt6.QtWidgets import QApplication, QWidget, QTableWidget, QTableWidgetItem, QPushButton, QHeaderView, QHBoxLayout, QVBoxLayout
+                   from PyQt6.QtCore import Qt
+                   class MyApp(QWidget):
+                       def __init__(self):
+                           super().__init__()
+                           self.window_width, self.window_height = 1280, 600
+                           self.resize(self.window_width, self.window_height)
+                           self.setWindowTitle('Aktif Projeler Hakkında Bilgiler')
+                           
+                           layout = QVBoxLayout()
+                           self.setLayout(layout)
+
+                           self.table = QTableWidget(1,10)
+                           layout.addWidget(self.table)
+                           self.table.clear()
+                           self.table.setHorizontalHeaderLabels(('Proje_Adı','Başlangıç_Tarihi','Bitiş_Tarihi','İş_Analisti','Donanımcı','Yazılımcı','İş_analisti Önemi','Yazılımcı Önemi','Donanımcı Önemi','Kazanç Önemi'))
+                           
+                           self.table.setItem(0, 0,QTableWidgetItem(str("Proje İsmi")))
+                           self.table.setItem(0, 1,QTableWidgetItem(str("2022-06-19")))
+                           self.table.setItem(0, 2,QTableWidgetItem(str("Yıl-Ay-Gün-")))
+                           self.table.setItem(0, 3,QTableWidgetItem(str("(0-10)")))
+                           self.table.setItem(0, 4,QTableWidgetItem(str("(0-10)")))
+                           self.table.setItem(0, 5,QTableWidgetItem(str("(0-10)")))
+                           self.table.setItem(0, 6,QTableWidgetItem(str("(0-10)")))
+                           self.table.setItem(0, 7,QTableWidgetItem(str("(0-10)")))
+                           self.table.setItem(0, 8,QTableWidgetItem(str("(0-10)")))
+                           self.table.setItem(0, 9,QTableWidgetItem(str("(0-10)")))
+                           
+
+
+
+                           self.button = QPushButton('&Atama İşlemi')
+                           self.button.clicked.connect(lambda _, xl_path="Ithinka_Inovasyon.xlsx", sheet_name="Aktif Projeler": self.Atama_Data(xl_path, sheet_name))
+                           layout.addWidget(self.button)
+                           
+                        
+                         
+                           
+                          
+
+                       def Atama_Data(self, excel_file_dir, worksheet_name):
+                           
+                           t1=self.table.item(0,0).text()
+                           t2=self.table.item(0,1).text()
+                           t3=self.table.item(0,2).text()
+                           t4=self.table.item(0,3).text()
+                           t5=self.table.item(0,4).text()
+                           t6=self.table.item(0,5).text()
+                           t7=self.table.item(0,6).text()
+                           t8=self.table.item(0,7).text()
+                           t9=self.table.item(0,8).text()
+                           t10=self.table.item(0,9).text()
+                           
+                           
+                           date = str(t2)
+                           datem = datetime. datetime. strptime(date, "%Y-%m-%d")
+
+                          
+                           wb = load_workbook("Ithinka_Inovasyon.xlsx")
+                           ws = wb.sheetnames
+
+                           ws = wb["Liste"]
+
+                           excell=[]
+                           
+                           
+
+
+                           all_data = pd.DataFrame()
+                           for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                               df = pd.read_excel(f,"Liste")
+                               all_data = all_data.append(df,ignore_index=True)
+
+                           all_data.dropna(how='all')
+                           excell=np.asarray(all_data)
+
+                           yeni_liste=[]
+                           yeni_liste2=[]
+                           proj1=[];proj2=[];proj3=[];proj4=[];proj5=[];proj6=[];proj7=[];proj8=[];proj9=[];proj10=[];proj11=[];proj12=[]
+
+                           "0-4,0(iş analisti)"
+                           "0-4,1(c#)"
+                           "0-4,2(Donanım)"
+                           "0-4,3(Python)"
+                           "0-4,4(NoSQL)"
+                           "0-4,5(C++)"
+                           "0-4,6(MongoDB)"
+                           "0-4,7(Oracle)"
+                           "0-4,8(MySQL)"
+
+                           excell_cost=[]
+                           all_data = pd.DataFrame()
+                           for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                               df = pd.read_excel(f,"Cost")
+                               all_data = all_data.append(df,ignore_index=True)
+
+                           all_data.dropna(how='all')
+                           excell_cost=np.asarray(all_data)
+
+
+                           excell_start=[]
+                           all_data = pd.DataFrame()
+                           for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                               df = pd.read_excel(f,"Start")
+                               all_data = all_data.append(df,ignore_index=True)
+
+                           all_data.dropna(how='all')
+                           excell_start=np.asarray(all_data)
+                           excell_finish=[]
+                           all_data = pd.DataFrame()
+                           for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                               df = pd.read_excel(f,"Finish")
+                               all_data = all_data.append(df,ignore_index=True)
+
+                           all_data.dropna(how='all')
+                           excell_finish=np.asarray(all_data)
+
+
+                           'Oracle=17' 'MongoDB=23' 'MySQL=31' 'NoSQL=41' 'Python=53' 'C#=61' 'C++=73' 'İş Analisti=7' 'Donanım=13'
+
+                           excell_lang=[]
+                           all_data = pd.DataFrame()
+                           for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                               df = pd.read_excel(f,"Lang_Skill")
+                               all_data = all_data.append(df,ignore_index=True)
+
+                           all_data.dropna(how='all')
+                           excell_lang=np.asarray(all_data)
+
+                           excell_Proj=[]
+                           all_data = pd.DataFrame()
+                           for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                               df = pd.read_excel(f,"Proj_Skill")
+                               all_data = all_data.append(df,ignore_index=True)
+
+                           all_data.dropna(how='all')
+                           excell_Proj=np.asarray(all_data)
+
+                           excell_required=[]
+                           all_data = pd.DataFrame()
+                           for f in glob.glob("Ithinka_Inovasyon.xlsx"):    
+                               df = pd.read_excel(f,"Proj_Need")
+                               all_data = all_data.append(df,ignore_index=True)
+
+                           all_data.dropna(how='all')
+                           excell_required=np.asarray(all_data)
+
+
+
+
+                           excell_emp_priotity=[]
+
+
+                           all_data = pd.DataFrame()
+                           for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                               df = pd.read_excel(f,"Proj_emp_priority")
+                               all_data = all_data.append(df,ignore_index=True)
+
+                           all_data.dropna(how='all')
+                           excell_emp_priotity=np.asarray(all_data)
+
+
+
+                           excell_proj_priotity=[]
+
+
+                           all_data = pd.DataFrame()
+                           for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                               df = pd.read_excel(f,"Proj_priority")
+                               all_data = all_data.append(df,ignore_index=True)
+
+                           all_data.dropna(how='all')
+                           excell_proj_priotity=np.asarray(all_data)
+
+                           excell_start=[] 
+                           all_data = pd.DataFrame()
+                           for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                                df = pd.read_excel(f,"Start")
+                                all_data = all_data.append(df,ignore_index=True)
+
+                           all_data.dropna(how='all')
+                           excell_start=np.asarray(all_data)
+
+
+                           excell_proj_time=[] 
+                           all_data = pd.DataFrame()
+                           for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                                df = pd.read_excel(f,"Proj_time")
+                                all_data = all_data.append(df,ignore_index=True)
+
+                           all_data.dropna(how='all')
+                           excell_proj_time=np.asarray(all_data)
+                           #print(excell_proj_time)
+                            
+                           human=[]
+
+                           wb = load_workbook("Ithinka_Inovasyon.xlsx")
+                           ws = wb.active
+
+
+
+
+                           ws = wb["Aktif Projeler"] 
+                          
+                           
+                          
+                          
+                           
+                           
+                           for i in range(3):
+                               
+                               
+                               
+                               def secerek_sirala(Vektor):
+                                   for i in range(len(Vektor)-1):
+                                       enk = Vektor[i]
+                                   
+                                       enk_indis = i
+                                       for j in range(i+1, len(Vektor)):
+                                           if Vektor[j] < enk:
+                                               enk = Vektor[j]                    
+                                               enk_indis = j
+                                       depo = Vektor[i]
+                                       depo2=d2[i]
+                                       Vektor[i] = Vektor[enk_indis]
+                                       d2[i]=d2[enk_indis]
+                                       Vektor[enk_indis] = depo
+                                       d2[enk_indis]=depo2
+                              
+                              
+                               
+                               lang_skill = [excell_lang[0,i],excell_lang[1,i],excell_lang[2,i],excell_lang[3,i],excell_lang[4,i],excell_lang[5,i],excell_lang[6,i],excell_lang[7,i],excell_lang[8,i]]
+                               m=Model("Ithinka_BST_Resource Allocation")
+                               employee,cost,avs,ave,ndk,priotity=multidict({
+                                       (excell[0,i]):[excell_cost[0,i],excell_start[0,i],excell_finish[0,i],lang_skill[0],excell_emp_priotity[0,i]],(excell[1,i]):[excell_cost[1,i],excell_start[1,i],excell_finish[1,i],lang_skill[1],excell_emp_priotity[1,i]],(excell[2,i]):[excell_cost[2,i],excell_start[2,i],excell_finish[2,i],lang_skill[2],excell_emp_priotity[2,i]],
+                                       (excell[3,i]):[excell_cost[3,i],excell_start[3,i],excell_finish[3,i],lang_skill[3],excell_emp_priotity[3,i]],(excell[4,i]):[excell_cost[4,i],excell_start[4,i],excell_finish[4,i],lang_skill[4],excell_emp_priotity[4,i]],(excell[5,i]):[excell_cost[5,i],excell_start[5,i],excell_finish[5,i],lang_skill[5],excell_emp_priotity[5,i]],
+                                       (excell[6,i]):[excell_cost[6,i],excell_start[6,i],excell_finish[6,i],lang_skill[6],excell_emp_priotity[6,i]],(excell[7,i]):[excell_cost[7,i],excell_start[7,i],excell_finish[7,i],lang_skill[7],excell_emp_priotity[7,i]],(excell[8,i]):[excell_cost[8,i],excell_start[8,i],excell_finish[8,i],lang_skill[8],excell_emp_priotity[8,i]]})
+
+
+
+                              
+                                       
+                             
+                               
+                               
+                               
+                               
+                                  
+                                  
+                                  
+                                 
+                               
+                               t11=8
+                               if i==0:
+                                excell_required[datem.month-1,i]=t4
+                                excell_proj_priotity[datem.month-1,i]=t11
+                                excell_Proj[datem.month-1,i]=7
+                               if i==1:
+                                 excell_required[datem.month-1,i]=t5
+                                 excell_proj_priotity[datem.month-1,i]=t11
+                                 excell_Proj[datem.month-1,i]=13
+                               if i==2:
+                                  excell_required[datem.month-1,i]=t6
+                                  excell_proj_priotity[datem.month-1,i]=t11
+                                  excell_Proj[datem.month-1,i]=61
+                                  
+                               
+                              
+                               proj_priotity=[excell_proj_priotity[0,i],excell_proj_priotity[1,i],excell_proj_priotity[2,i],excell_proj_priotity[3,i],excell_proj_priotity[4,i],excell_proj_priotity[5,i],excell_proj_priotity[6,i],excell_proj_priotity[7,i],excell_proj_priotity[8,i],excell_proj_priotity[9,i],excell_proj_priotity[10,i],excell_proj_priotity[11,i]]
+                               required=[excell_required[0,i],excell_required[1,i],excell_required[2,i],excell_required[3,i],excell_required[4,i],excell_required[5,i],excell_required[6,i],excell_required[7,i],excell_required[8,i],excell_required[9,i],excell_required[10,i],excell_required[11,i]]
+                               pdk=[excell_Proj[0,i],excell_Proj[1,i],excell_Proj[2,i],excell_Proj[3,i],excell_Proj[4,i],excell_Proj[5,i],excell_Proj[6,i],excell_Proj[7,i],excell_Proj[8,i],excell_Proj[9,i],excell_Proj[10,i],excell_Proj[11,i]]
+                               t=12
+
+                               d2= []
+                               d3=[]  
+                               proj = []
+                               d4=[]
+                               d5=[]
+                               our_list=[]
+                               
+                               
+                                           
+                               
+                                 
+                               
+                               m.update()
+                               x={}
+                               staffNumber={}
+                               for d in employee:
+                                   for i in range(t):
+                                       for j in range(i+1,t+1):
+                                           x[d,i,j]=m.addVar(vtype=GRB.BINARY,name="x_%s_%d_%d"%(d,i,j))
+                               for c in range(t):
+                                   staffNumber[c]=m.addVar(vtype=GRB.INTEGER,lb=required[c],name='staffNumber_%d'%c)
+                               
+                               m.setObjective(quicksum(quicksum(quicksum(priotity[d]*proj_priotity[c]*x[d,i,j] for j in range(i+1,t+1))for i in range(t))for d in employee),GRB.MAXIMIZE)
+                               m.setObjective(quicksum(quicksum(quicksum(x[d,i,j]*cost[d] for j in range(i+1,t+1))for i in range(t))for d in employee),GRB.MINIMIZE)
+                               
+                               for d in employee:
+                                   m.addConstr(quicksum(quicksum(x[d,i,j] for j in range(i+1,ave[d]+1))for i in range(avs[d],ave[d]))<=1)
+                                   m.addConstr(quicksum(quicksum(x[d,i,j] for j in range(i+1,t+1))for i in range(t))<=quicksum(quicksum(x[d,i,j] for j in range(i+1,ave[d]+1))for i in range(avs[d],ave[d])))
+                               for c in range(t):
+                                   m.addConstr(quicksum(quicksum(quicksum(x[d,i,j] for j in range(i+1,t+1)if i <= c <j) for i in range(t))for d in employee)==staffNumber[c])
+                               for c in range(t):
+                                   m.addConstr(quicksum(quicksum(quicksum(x[d,i,j]*ndk[d] for j in range(i+1,t+1)if i <= c <j) for i in range(t))for d in employee)==staffNumber[c]*pdk[c])
+                                 
+                               m.optimize()
+                               m.write("Source.lp")
+                               
+
+                               print ("Optimal objective value is %g"%m.objVal)
+                               if m.status == GRB.Status.OPTIMAL:
+                                 
+                                   solution = m.getAttr('x', x)
+                                   for d in employee :
+                                       for i in range(t):
+                                           for j in range(i+1,t+1):
+                                               if solution[d,i,j] == 1:
+                                                   
+                                                   print(" %s  %g.aydaki projede çalışacak " % (d,i+1))
+                                                   if i+1==j:
+                                                       d2+=[d]
+                                                       d3+=[i+1]
+                                                       d4+=[d]
+                                                       d5+=[i+1]
+                                                 
+                                   staffNumber_sol=m.getAttr('x',staffNumber)
+                                   for c in range(t):
+                                     print ('%d.inci aydaki  projede çalışan sayısı  %d'%(c+1,staffNumber_sol[c]))
+                                   yeni_liste2+=d3,d2
+                                
+                                   if "Ahmet" in d2:
+                                      for i in range(len(d2)):
+                                          if d2[i]=="Ahmet":
+                                            
+                                           excell_start[0,0]=d3[i]+excell_proj_time[d3[i]-1,0]
+                                           excell_start[0,1]=d3[i]+excell_proj_time[d3[i]-1,0]
+                                           excell_start[0,2]=d3[i]+excell_proj_time[d3[i]-1,0] 
+                                           
+                                   if "Veli" in d2:
+                                        for i in range(len(d2)):
+                                            if d2[i]=="Veli":
+                                             
+                                             
+                                             
+                                             excell_start[1,0]=d3[i]+excell_proj_time[d3[i]-1,0]
+                                             excell_start[2,1]=d3[i]+excell_proj_time[d3[i]-1,0]
+                                             excell_start[1,2]=d3[i]+excell_proj_time[d3[i]-1,0]
+                                   
+                                    
+                                   if "Adem" in d2:
+                                        for i in range(len(d2)):
+                                            if d2[i]=="Adem":
+                                             
+                                             excell_start[3,2]=d3[i]+excell_proj_time[d3[i]-1,0]
+                                             
+                                             
+                                   if "Emre" in d2:
+                                        for i in range(len(d2)):
+                                            if d2[i]=="Emre":
+                                             
+                                             excell_start[4,1]=d3[i]+excell_proj_time[d3[i]-1,0]
+                                   
+                                             
+                                   if "Can" in d2:
+                                         for i in range(len(d2)):
+                                             if d2[i]=="Can":
+                                             
+                                              excell_start[6,1]=d3[i]+excell_proj_time[d3[i]-1,0]
+                                              
+                                   if "Şahsine" in d2:
+                                         for i in range(len(d2)):
+                                             if d2[i]=="Şahsine":
+                                             
+                                              excell_start[7,1]=d3[i]+excell_proj_time[d3[i]-1,0]
+                                              
+                                   if "Buse" in d2:
+                                         for i in range(len(d2)):
+                                             if d2[i]=="Buse":
+                                             
+                                              excell_start[6,2]=d3[i]+excell_proj_time[d3[i]-1,0]
+                                              
+                                   if "Serhan" in d2:
+                                         for i in range(len(d2)):
+                                             if d2[i]=="Serhan":
+                                             
+                                              excell_start[7,2]=d3[i]+excell_proj_time[d3[i]-1,0]
+
+
+                                   if "Muhittin" in d2:
+                                         for i in range(len(d2)):
+                                             if d2[i]=="Muhittin":
+                                             
+                                              excell_start[2,2]=d3[i]+excell_proj_time[d3[i]-1,0]
+                                   
+                                   
+                                   if "Kamil" in d2:
+                                         for i in range(len(d2)):
+                                             if d2[i]=="Kamil":
+                                             
+                                              excell_start[4,2]=d3[i]+excell_proj_time[d3[i]-1,0]
+                                              
+                                              
+                                              
+                                              
+                                              
+                                   #print(d2)
+                                   #print(d5)
+                                   #print(d4)
+                                   
+                                   d3.sort(reverse=False)
+                                   secerek_sirala(d5)
+                                   
+                                   
+                                   for i in range(len(d5)):
+                                       #print("deneme",i)
+                                       if d5[i] ==1:
+                                           proj1+=[d2[i]]
+                                       elif d5[i]==2:
+                                           proj2+=[d2[i]]
+                                       elif d5[i]==3:
+                                           proj3+=[d2[i]]
+                                       elif d5[i]==4:
+                                           proj4+=[d2[i]]
+                                       elif d5[i]==5:
+                                           proj5+=[d2[i]] 
+                                       elif d5[i]==6:
+                                           proj6+=[d2[i]]    
+                                       elif d5[i]==7:
+                                           proj7+=[d2[i]]
+                                       elif d5[i]==8:
+                                           proj8+=[d2[i]]
+                                       elif d5[i]==9:
+                                           proj9+=[d2[i]]
+                                       elif d5[i]==10:
+                                           proj10+=[d2[i]] 
+                                       elif d5[i]==11:
+                                           proj11+=[d2[i]]    
+                                       elif d5[i]==12:
+                                           proj12+=[d2[i]]        
+                                        
+                                           
+                                             
+                                           
+                                  
+                                  
+                                   
+                                   
+                                   
+                                 
+                            
+                                                   
+                                   
+                                                                    
+                                            
+                                            
+                                            
+                                            
+                                                      
+                          
+                           
+                           humans=[]
+                           
+
+                           for i in range(1):
+                               for j in range(len(yeni_liste2[i])):
+                                   our_list+= [yeni_liste2[i][j]]
+
+
+                           #print(human[0:1])
+                           #print(d5)
+
+
+                           def bubble_sort(our_list):
+                               # We go through the list as many times as there are elements
+                               for i in range(len(our_list)):
+                                   # We want the last pair of adjacent elements to be (n-2, n-1)
+                                   for j in range(len(our_list) - 1):
+                                       if our_list[j] > our_list[j+1]:
+                                           # Swap
+                                           our_list[j], our_list[j+1] = our_list[j+1], our_list[j]
+                                           d4[j], d4[j+1]= d4[j+1],d4[j]
+                                           lang_skill[j],lang_skill[j+1]=lang_skill[j+1],lang_skill[j]
+                                         
+                           #print(our_list)
+                           #print(d4)
+
+                           #print(our_list)
+                           bubble_sort(our_list)
+
+
+
+
+                                   
+
+
+
+
+
+
+
+
+                               
+                                  
+
+                           Excel_D2=[]  
+
+
+
+                           #print(human)
+                                 
+
+                                  
+                                   
+                           excell_gantt=[]
+
+                           all_data = pd.DataFrame()
+                           for f in glob.glob("Ithinka_Inovasyon.xlsx"):
+                               df = pd.read_excel(f,"Aktif Projeler")
+                               all_data = all_data.append(df,ignore_index=True)
+
+                           all_data.dropna(how='all')
+                           excell_gantt=np.asarray(all_data)
+
+
+
+
+                           Excel_proj2=[]
+                           ss1=[]
+                           ss2=[]
+                           ss3=[]
+                           ss4=[]
+                           ss5=[]
+                           
+                           wb = load_workbook("Ithinka_Inovasyon.xlsx")
+                           ws = wb.active
+
+
+
+
+                           ws = wb["Aktif Projeler"]
+
+                           
+
+                           for i in range(ws.max_row-1):
+                               ss1+=[excell_gantt[i,0]]
+                               ss2+=[excell_gantt[i,1]]
+                               ss3+=[excell_gantt[i,2]]
+                               ss4+=[excell_gantt[i,6]]
+                               if len(proj1)!=0:
+                                   ss5=[proj1]
+                               if len(proj2)!=0:
+                                   ss5+=[proj2]
+                               if len(proj3)!=0:
+                                   ss5+=[proj3] 
+                               if len(proj4)!=0:
+                                  ss5+=[proj4]
+                               if len(proj5)!=0:
+                                  ss5+=[proj5]
+                               if len(proj6)!=0:
+                                  ss5+=[proj6]
+                               if len(proj7)!=0:
+                                  ss5+=[proj7] 
+                               if len(proj8)!=0:
+                                 ss5+=[proj8]
+                               if len(proj9)!=0:
+                                 ss5+=[proj9]
+                               if len(proj10)!=0:
+                                  ss5+=[proj10]
+                               if len(proj11)!=0:
+                                 ss5+=[proj11]  
+                               if len(proj12)!=0:
+                                ss5+=[proj12]
+                               
+                               
+                               
+                               
+                               
+                               
+                              
+                              
+                               
+                               
+                                  
+                                 
+                                 
+                              
+                                
+                               
+
+
+                           
+                             
+                           #Excel_D2=[['Emre(İş Analisti)','Veli(Yazılım)','Adem(Donanım)'], ['Buse(İş Analisti)','Oğulcan(Yazılım)','Ahmet-Oğuz(Donanım)'], ['Şahsine(İş Analisti)','Kamil(Yazılım)','Veli(Donanım)']]
+                           ss1+=[t1]
+                           ss2+=[t2]
+                           ss3+=[t3]
+                           ss4+=[t11]
+                                           
+
+                          
+                         
+                           
+                           data = pd.DataFrame({'Projeler': ss1, 'Başlangıç Tarihi:':ss2 , 'Bitiş Tarihi:':ss3 ,'Proje Önceliği':ss4 ,'Kaynaklar':ss5})
+
+                           data.to_excel('task.xlsx', sheet_name='Gantt', index=False)
+
+                           EXCEL_FILE = Path.cwd() / "task.xlsx"
+
+
+                           df = pd.read_excel(EXCEL_FILE)
+
+
+                           tasks = df["Projeler"]
+                           start = df["Başlangıç Tarihi:"]
+                           finish = df["Bitiş Tarihi:"]
+                           complete = df["Proje Önceliği"]
+                           kaynaklar = df["Kaynaklar"]
+
+
+
+                           fig = px.timeline(
+                               df, x_start=start, x_end=finish, y=tasks,color=complete, hover_name=kaynaklar, title="Ithinka_Resource_Allocation"
+                           )
+
+
+                           fig.update_yaxes(autorange="reversed")
+                           fig.update_layout(title_font_size=42, font_size=18,title_font_family="Arial")
+
+
+                           plotly.offline.plot(fig, filename="Preparedby_Group_18.html")
+                           
+                           
+                           os.system('Preparedby_Group_18.html')
+
+                           
+                           
+                   if __name__ == '__main__':
+                       # don't auto scale when drag app to a different monitor.
+                       # QGuiApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
+                       
+                       excel_file_path = 'data.xlsx'
+                       worksheet_name = 'Sales'
+
+                       app = QApplication(sys.argv)
+                       app.setStyleSheet('''
+                           QWidget {
+                               font-size: 17px;
+                           }
+                       ''')
+                       
+                       myApp = MyApp()
+                       myApp.show()
+
+                       try:
+                           sys.exit(app.exec())
+                       except SystemExit:
+                           print('Closing Window...')
+                   
+                 #----------------------SİNYAL-SLOT-----------------------------#
+                 #---------------------------------------------------------
+                 def Kişi_EKLE():
+                     
+                     
+                     print("Kişi_Ekleme İşlemi Yapıldı")
+                     from PyQt6.QtWidgets import QApplication, QWidget, QTableWidget, QTableWidgetItem, QPushButton, QHeaderView, QHBoxLayout, QVBoxLayout
+                     from PyQt6.QtCore import Qt
+                     class MyApp(QWidget):
+                         def __init__(self):
+                             super().__init__()
+                             self.window_width, self.window_height = 1280, 600
+                             self.resize(self.window_width, self.window_height)
+                             self.setWindowTitle('Aktif Projeler Hakkında Bilgiler')
+                             
+                             layout = QVBoxLayout()
+                             self.setLayout(layout)
+
+                             self.table = QTableWidget(1,7)
+                             layout.addWidget(self.table)
+                             self.table.clear()
+                             self.table.setHorizontalHeaderLabels(('Çalışanın İsmi','Maliyeti','Avs Zamanı','Ave Zamanı','Yetkinlik_1','Yetkinlik_2','Yetkinlik_3'))
+                             
+                             self.table.setItem(0, 0,QTableWidgetItem(str("---")))
+                             self.table.setItem(0, 1,QTableWidgetItem(str("TL")))
+                             self.table.setItem(0, 2,QTableWidgetItem(str("(0-12)")))
+                             self.table.setItem(0, 3,QTableWidgetItem(str("(0-12)")))
+                             self.table.setItem(0, 4,QTableWidgetItem(str("(iş_Analisti,Donanımcı,C#,C++,Python)")))
+                             self.table.setItem(0, 5,QTableWidgetItem(str("iş_Analisti,Donanımcı,C#,C++,Python")))
+                             self.table.setItem(0, 6,QTableWidgetItem(str("iş_Analisti,Donanımcı,C#,C++,Python")))
+                                 
+
+
+
+                             self.button = QPushButton('&Kayıt İşlemi')
+                             self.button.clicked.connect(lambda _, xl_path="Ithinka_Inovasyon.xlsx", sheet_name="Aktif Projeler": self.Atama_Data(xl_path, sheet_name))
+                             layout.addWidget(self.button)
+                             
+                          
+                           
+                             
+                            
+
+                         def Atama_Data(self, excel_file_dir, worksheet_name):
+                             
+                             wb = load_workbook("Ithinka_Inovasyon.xlsx")
+                             ws = wb.active
+
+
+                              
+                             ws = wb["Bilgi"]
+                             isim=self.table.item(0,0).text()
+                             cost=self.table.item(0,1).text()
+                             avs=self.table.item(0,2).text()
+                             ave=self.table.item(0,3).text()
+                             yet1=self.table.item(0,4).text()
+                             yet2=self.table.item(0,5).text()
+                             yet3=self.table.item(0,6).text()
+
+                             ws.append([isim, cost,avs,ave,yet1,yet2,yet3])
+
+                             wb.save("Ithinka_Inovasyon.xlsx")  # Sıradaki satıra sırasıyla dizi elemanlarını ekler                    
+                             
+                             
+                     if __name__ == '__main__':
+                         # don't auto scale when drag app to a different monitor.
+                         # QGuiApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
+                         
+                         excel_file_path = 'data.xlsx'
+                         worksheet_name = 'Sales'
+
+                         app = QApplication(sys.argv)
+                         app.setStyleSheet('''
+                             QWidget {
+                                 font-size: 17px;
+                             }
+                         ''')
+                         
+                         myApp = MyApp()
+                         myApp.show()
+
+                         try:
+                             sys.exit(app.exec())
+                         except SystemExit:
+                             print('Closing Window...')
+                     
+
+
+
+
+
+
+
+
+                     
+                  
+                         
+                 #----------------------SİNYAL-SLOT-----------------------------#
+                 #---------------------------------------------------------
+
+
+
+                 #on cLick item method
+
+                 ui.lwKaynak1.clicked.connect(getListItem)
+
+
+
+
+                 ui.btnekle.clicked.connect(EKLE)
+                 ui.pushButton_5.clicked.connect(LISTELE)
+                 ui.pushButton_6.clicked.connect(CIKIS)
+
+                 ui.pushButton_7.clicked.connect(Kişi_EKLE)
+
+                 ui.pushButton_4.clicked.connect(Güncelle)
+                 #ui.menuHakkinda.triggered.connect(HAKKINDA)
+                 #ui.actionha.triggered.connect(HAKKINDA)
+                 #ui.actionHakk_nda.triggered.connect(HAKKINDA)
+                 ui.actionHakk_nda.triggered.connect(HAKKINDA)        
+                 ui.commandLinkButton.clicked.connect(Gantt)
+                 ui.btnekle_2.clicked.connect(Atama)         
+                         
+                         
+                         
+                 sys.exit(Uygulama.exec_())
+        
+    else:
+        messagebox.showwarning("LOGIN FAILED","        PLEASE TRY AGAIN        ")    
+
+
+
+       
+        
+       
+        
+       
+        
+       
+        
+       
+        
+       
+        
+       
+        
+       
+        
+       
+        
+       
+        
+       
+        
+       
+        
+       
+        
+        
+    
+
+
+#Button_with hover effect
+def bttn(x,y,text,ecolor,lcolor):
+    def on_entera(e):
+        myButton1['background'] = ecolor #ffcc66
+        myButton1['foreground']= lcolor  #000d33
+
+    def on_leavea(e):
+        myButton1['background'] = lcolor
+        myButton1['foreground']= ecolor
+
+    myButton1 = Button(w,text=text,
+                   width=20,
+                   height=2,
+                   fg=ecolor,
+                   border=0,
+                   bg=lcolor,
+                   activeforeground=lcolor,
+                   activebackground=ecolor,
+                       command=cmd)
+                  
+    myButton1.bind("<Enter>", on_entera)
+    myButton1.bind("<Leave>", on_leavea)
+
+    myButton1.place(x=x,y=y)
+
+
+bttn(100,375,'L O G I N','white','#994422')
+
+
+w.mainloop()
+
